@@ -166,8 +166,13 @@ fun MainScreen() {
                     mapView.apply {
                         setTileSource(TileSourceFactory.MAPNIK)
                         setMultiTouchControls(true)
+                        setBuiltInZoomControls(false)
                         controller.setZoom(12.0)
                         controller.setCenter(homeLocation)
+                        
+                        // Habilitar el seguimiento de ubicación en el overlay
+                        myLocationOverlay.enableMyLocation()
+                        myLocationOverlay.enableFollowLocation()
                         
                         overlays.add(myLocationOverlay)
                         
