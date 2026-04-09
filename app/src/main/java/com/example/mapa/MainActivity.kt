@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.example.mapa.ui.theme.MapaTheme
@@ -125,10 +126,10 @@ fun MainScreen() {
         modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
-                title = { Text("Ruta a Casa") },
+                title = { Text("Ruta a Casa", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold) },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                    containerColor = MaterialTheme.colorScheme.inversePrimary,
+                    titleContentColor = MaterialTheme.colorScheme.primary
                 )
             )
         },
@@ -136,7 +137,8 @@ fun MainScreen() {
             Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
                 FloatingActionButton(
                     onClick = { isConfiguringHome = !isConfiguringHome },
-                    containerColor = if (isConfiguringHome) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.secondary
+                    containerColor = if (isConfiguringHome) MaterialTheme.colorScheme.primary
+                    else MaterialTheme.colorScheme.inversePrimary
                 ) {
                     Icon(Icons.Default.Home, contentDescription = "Configurar Casa")
                 }
@@ -149,7 +151,8 @@ fun MainScreen() {
                                 mapView.controller.animateTo(it)
                             }
                         }
-                    }
+                    },
+                    containerColor = MaterialTheme.colorScheme.inversePrimary
                 ) {
                     Icon(Icons.Default.MyLocation, contentDescription = "Mi Ubicación")
                 }
@@ -216,14 +219,14 @@ fun MainScreen() {
                         .padding(16.dp)
                         .align(Alignment.TopCenter),
                     shape = MaterialTheme.shapes.medium,
-                    color = MaterialTheme.colorScheme.tertiaryContainer,
+                    color = MaterialTheme.colorScheme.inversePrimary,
                     tonalElevation = 4.dp
                 ) {
                     Text(
                         "Toca el mapa para establecer la ubicación de tu casa",
                         modifier = Modifier.padding(16.dp),
                         style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onTertiaryContainer
+                        color = MaterialTheme.colorScheme.primary
                     )
                 }
             }
