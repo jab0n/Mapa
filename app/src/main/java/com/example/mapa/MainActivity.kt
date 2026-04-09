@@ -1,5 +1,6 @@
 package com.example.mapa
 
+import android.annotation.SuppressLint
 import android.Manifest
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -86,6 +87,7 @@ fun MainScreen() {
     }
 
     // Solicitar ubicación al inicio
+    @SuppressLint("MissingPermission")
     LaunchedEffect(permissionState.allPermissionsGranted) {
         if (permissionState.allPermissionsGranted) {
             fusedLocationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null)
@@ -162,11 +164,11 @@ fun MainScreen() {
         Box(modifier = Modifier.padding(innerPadding).fillMaxSize()) {
             AndroidView(
                 modifier = Modifier.fillMaxSize(),
-                factory = { context ->
+                factory = { _ ->
                     mapView.apply {
                         setTileSource(TileSourceFactory.MAPNIK)
                         setMultiTouchControls(true)
-                        setBuiltInZoomControls(false)
+                        zoomController.setVisibility(org.osmdroid.views.CustomZoomButtonsController.Visibility.NEVER)
                         controller.setZoom(12.0)
                         controller.setCenter(homeLocation)
                         
